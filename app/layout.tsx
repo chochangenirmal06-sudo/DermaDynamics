@@ -1,15 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import WhatsAppButton from "@/components/layout/WhatsAppButton";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-heading",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-body",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -23,11 +32,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className={`${cormorant.variable} ${jakarta.variable} h-full antialiased`}>
+      <head>
+        {/* Anti-flash: read localStorage + system preference before React hydrates */}
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('dd-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})();` }} />
+      </head>
+      <body className="min-h-full flex flex-col">
+        <ThemeProvider>
+          <Navbar />
+          <main id="main-content" className="pt-20">
+            {children}
+          </main>
+          <Footer />
+          <WhatsAppButton />
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
