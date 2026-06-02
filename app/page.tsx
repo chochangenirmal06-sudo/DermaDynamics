@@ -1,5 +1,4 @@
 import Hero from "@/components/sections/Hero";
-import TrustBar from "@/components/sections/TrustBar";
 import ServicesOverview from "@/components/sections/ServicesOverview";
 import HowItWorks from "@/components/sections/HowItWorks";
 import KoreanTech from "@/components/sections/KoreanTech";
@@ -12,7 +11,6 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <TrustBar />
       <ServicesOverview />
       <HowItWorks />
       <KoreanTech />
