@@ -3,7 +3,6 @@ import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import WhatsAppButton from "@/components/layout/WhatsAppButton";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 const cormorant = Cormorant_Garamond({
@@ -44,7 +43,6 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
-          <WhatsAppButton />
         </ThemeProvider>
       </body>
     </html>

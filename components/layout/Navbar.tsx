@@ -116,14 +116,12 @@ export default function Navbar() {
 
           <div className="flex items-center gap-3">
             {/* Book button — hidden on xs, always visible sm+ */}
-            <a
-              href={CONTACT_INFO.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/contact"
               className="hidden sm:inline-flex items-center justify-center px-5 min-h-[44px] rounded-sm bg-accent hover:bg-accent-dark text-white text-[14px] font-body font-medium [transition:background-color_0.2s_ease,transform_0.2s_ease] hover:-translate-y-px cursor-pointer touch-manipulation"
             >
               Book Appointment →
-            </a>
+            </Link>
 
             {/* Theme toggle */}
             <button
@@ -217,15 +215,13 @@ export default function Navbar() {
                   );
                 })}
 
-                <a
-                  href={CONTACT_INFO.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/contact"
                   onClick={() => setMenuOpen(false)}
                   className="mt-2 flex items-center justify-center min-h-[44px] px-5 rounded-sm bg-accent hover:bg-accent-dark text-white text-[14px] font-body font-medium [transition:background-color_0.2s_ease] cursor-pointer touch-manipulation"
                 >
                   Book Appointment →
-                </a>
+                </Link>
               </div>
             </motion.div>
           )}
