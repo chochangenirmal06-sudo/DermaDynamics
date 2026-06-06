@@ -6,60 +6,40 @@ import Link from "next/link";
 
 const SERVICES = [
   {
-    number: "01",
     name: "Botox",
     image: "/brand_assets/botox.png",
     description:
       "Precision injectables that smooth fine lines and restore a naturally rested, youthful appearance.",
   },
   {
-    number: "02",
     name: "Lip Filler",
     image: "/brand_assets/lipfiller.png",
     description:
       "Enhance lip volume and definition with hyaluronic acid for natural, beautiful results.",
   },
   {
-    number: "03",
     name: "Face Lifting Thread",
     image: "/brand_assets/Face Lifting.png",
     description:
       "Non-surgical lift using dissolvable threads for immediate skin tightening and contouring.",
   },
   {
-    number: "04",
     name: "Laser Hair Removal",
     image: "/brand_assets/laserhair.png",
     description:
       "Permanent hair reduction using advanced laser technology. Smooth skin, lasting results.",
   },
   {
-    number: "05",
     name: "Tattoo Removal",
     image: "/brand_assets/tatto.png",
     description:
       "Safe, precise laser removal with minimal downtime and maximum effectiveness.",
   },
   {
-    number: "06",
     name: "Skin Peeling",
     image: "/brand_assets/skinpeeling.png",
     description:
       "Medical-grade peels that resurface skin for a visibly brighter, smoother complexion.",
-  },
-  {
-    number: "07",
-    name: "PRP Hair Treatment",
-    image: "/brand_assets/prphair.png",
-    description:
-      "Platelet-rich plasma therapy to stimulate your scalp and encourage natural hair regrowth.",
-  },
-  {
-    number: "08",
-    name: "MicroNeedling PRP",
-    image: "/brand_assets/microneedling.png",
-    description:
-      "Combined micro-needling and PRP for deep skin rejuvenation and collagen stimulation.",
   },
 ];
 
@@ -120,33 +100,33 @@ export default function ServicesOverview() {
           margin: 0;
         }
 
-        /* ── Grid ── */
+        /* ── Grid: 1 col mobile → 2 col tablet → 3 col desktop ── */
         .so-grid {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 12px;
+          grid-template-columns: 1fr;
+          gap: 16px;
         }
-        @media (min-width: 900px) {
-          .so-grid { grid-template-columns: repeat(3, 1fr); gap: 22px; }
+        @media (min-width: 640px) {
+          .so-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
         }
         @media (min-width: 1024px) {
-          .so-grid { grid-template-columns: repeat(4, 1fr); gap: 24px; }
+          .so-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
         }
 
         /* ── Card shell ── */
         .so-card {
           position: relative;
-          border-radius: var(--radius-lg);
+          border-radius: 18px;
           overflow: hidden;
           cursor: pointer;
           aspect-ratio: 4 / 5;
-          box-shadow: var(--shadow-card);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          transition: transform 0.35s ease, box-shadow 0.35s ease;
           -webkit-tap-highlight-color: transparent;
+          box-shadow: 0 4px 24px rgba(0,0,0,0.18);
         }
         .so-card:hover {
-          transform: translateY(-4px);
-          box-shadow: var(--shadow-float);
+          transform: translateY(-6px);
+          box-shadow: 0 16px 48px rgba(0,0,0,0.28);
         }
         .so-card:focus-visible {
           outline: 2px solid var(--color-accent);
@@ -157,38 +137,36 @@ export default function ServicesOverview() {
         .so-img-wrap {
           position: absolute;
           inset: 0;
-          transition: transform 0.5s ease;
+          transition: transform 0.55s ease;
         }
-        .so-card:hover .so-img-wrap { transform: scale(1.06); }
+        .so-card:hover .so-img-wrap { transform: scale(1.07); }
 
-        /* Always-on gradient overlay */
+        /* Gradient overlay — transparent top half, pitch-dark bottom third */
         .so-gradient {
           position: absolute;
           inset: 0;
           z-index: 1;
           background: linear-gradient(
             to bottom,
-            rgba(28,24,18,0.00) 0%,
-            rgba(28,24,18,0.15) 40%,
-            rgba(28,24,18,0.75) 75%,
-            rgba(28,24,18,0.92) 100%
+            transparent              0%,
+            transparent             38%,
+            rgba(0,0,0,0.45)        58%,
+            rgba(0,0,0,0.80)        72%,
+            rgba(0,0,0,0.94)        85%,
+            rgba(0,0,0,1.00)       100%
           );
           pointer-events: none;
         }
 
-        /* Hover darkener — layered on top of gradient */
+        /* Hover: slight overall darkening */
         .so-card::after {
           content: '';
           position: absolute;
           inset: 0;
           z-index: 2;
-          background: linear-gradient(
-            to bottom,
-            transparent 50%,
-            rgba(28,24,18,0.14) 100%
-          );
+          background: rgba(0,0,0,0.10);
           opacity: 0;
-          transition: opacity 0.3s ease;
+          transition: opacity 0.35s ease;
           pointer-events: none;
         }
         .so-card:hover::after { opacity: 1; }
@@ -200,31 +178,24 @@ export default function ServicesOverview() {
           left: 0;
           right: 0;
           z-index: 3;
-          padding: 24px;
-        }
-        .so-num {
-          display: block;
-          font-family: var(--font-body);
-          font-size: 11px;
-          letter-spacing: 0.1em;
-          color: rgba(250,248,245,0.55);
-          margin-bottom: 8px;
+          padding: 28px 26px 26px;
         }
         .so-name {
           font-family: var(--font-heading);
           font-weight: 700;
-          font-size: 22px;
-          color: var(--color-bg);
-          line-height: 1.2;
-          margin: 0 0 8px;
+          font-size: 24px;
+          color: #ffffff;
+          line-height: 1.15;
+          margin: 0 0 10px;
+          letter-spacing: -0.01em;
         }
         .so-desc {
           font-family: var(--font-body);
           font-weight: 400;
-          font-size: 13px;
-          color: rgba(250,248,245,0.72);
+          font-size: 13.5px;
+          color: rgba(255,255,255,0.78);
           line-height: 1.6;
-          margin: 0 0 16px;
+          margin: 0 0 18px;
         }
         .so-book-btn {
           display: inline-flex;
@@ -236,26 +207,27 @@ export default function ServicesOverview() {
           font-weight: 500;
           font-size: 12px;
           letter-spacing: 0.04em;
-          padding: 8px 16px;
-          border-radius: var(--radius-full);
+          padding: 9px 18px;
+          border-radius: 999px;
           text-decoration: none;
           white-space: nowrap;
           touch-action: manipulation;
-          transition: background-color 0.2s ease;
+          transition: background-color 0.2s ease, transform 0.2s ease;
         }
-        .so-book-btn:hover { background: var(--color-accent-dark); }
+        .so-book-btn:hover {
+          background: var(--color-accent-dark);
+          transform: translateY(-1px);
+        }
         .so-book-btn:focus-visible {
           outline: 2px solid #ffffff;
           outline-offset: 2px;
         }
 
         /* ── Mobile card content scaling ── */
-        @media (max-width: 899px) {
-          .so-content { padding: 12px; }
-          .so-num { font-size: 10px; margin-bottom: 4px; }
-          .so-name { font-size: 15px; margin-bottom: 4px; }
-          .so-desc { font-size: 11px; line-height: 1.5; margin-bottom: 10px; }
-          .so-book-btn { font-size: 10px; padding: 6px 10px; }
+        @media (max-width: 639px) {
+          .so-content { padding: 20px 18px 18px; }
+          .so-name { font-size: 21px; }
+          .so-desc { font-size: 13px; margin-bottom: 14px; }
         }
 
         /* ── Section footer ── */
@@ -325,7 +297,7 @@ export default function ServicesOverview() {
           <p className="so-subline">Science-backed. Expertly delivered.</p>
         </motion.div>
 
-        {/* ── 3×3 card grid ── */}
+        {/* ── Service card grid (1 / 2 / 3 cols) ── */}
         <div className="so-grid" role="list">
           {SERVICES.map((service, i) => (
             <motion.div
@@ -349,7 +321,7 @@ export default function ServicesOverview() {
                     fill
                     unoptimized
                     loading="lazy"
-                    style={{ objectFit: "cover" }}
+                    style={{ objectFit: "cover", objectPosition: "center top" }}
                   />
                 </div>
 
@@ -358,7 +330,6 @@ export default function ServicesOverview() {
 
                 {/* Text content */}
                 <div className="so-content">
-                  <span className="so-num">{service.number}</span>
                   <h3 className="so-name">{service.name}</h3>
                   <p className="so-desc">{service.description}</p>
                   <a

@@ -1,441 +1,328 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion, useAnimate, useInView } from "framer-motion";
-import { Crosshair, Zap, TrendingUp } from "lucide-react";
-
-// ─── Data ─────────────────────────────────────────────────────────────────────
-
-const H2_WORDS = "The Gold Standard of Korean Innovation".split(" ");
+import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 
 const FEATURES = [
   {
-    num: 1,
-    heading: "Precision",
-    body: "Every protocol is calibrated to your exact skin profile. No two treatment plans are alike — because no two patients are.",
-    Icon: Crosshair,
+    num: "01",
+    title: "We Actually Listen First",
+    body: "Before anything else, we sit with you. Your concerns, goals, and skin history shape the entire plan.",
   },
   {
-    num: 2,
-    heading: "Innovation",
-    body: "Korean medical-grade devices and actives, available only through certified clinical channels. The technology Seoul trusts — here in Pokhara.",
-    Icon: Zap,
+    num: "02",
+    title: "Korean Technology in Pokhara",
+    body: "The same devices trusted by Seoul's top clinics, without the flight. Seoul-grade science, Pokhara address.",
   },
   {
-    num: 3,
-    heading: "Results",
-    body: "We measure success in visible outcomes. Beautiful results that last long after your visit — backed by science, delivered with care.",
-    Icon: TrendingUp,
+    num: "03",
+    title: "Specialists, Not Generalists",
+    body: "Every procedure performed by medically trained specialists. No rotating GPs, no guesswork.",
+  },
+  {
+    num: "04",
+    title: "Treatment Tailored to You",
+    body: "One size never fits all. We build your plan around your skin, and we'll always recommend the best option.",
   },
 ] as const;
 
-// ─── Feature column ───────────────────────────────────────────────────────────
-
-function FeatureColumn({
-  feature,
-  index,
-  shouldAnimate,
-  triggered,
-}: {
-  feature: (typeof FEATURES)[number];
-  index: number;
-  shouldAnimate: boolean;
-  triggered: boolean;
-}) {
-  const [count, setCount] = useState(shouldAnimate ? 0 : feature.num);
-  const started = useRef(false);
-
-  useEffect(() => {
-    if (!triggered || started.current) return;
-    if (!shouldAnimate) {
-      setCount(feature.num);
-      return;
-    }
-    started.current = true;
-    const duration = 900;
-    const t0 = Date.now();
-    const tick = () => {
-      const p = Math.min((Date.now() - t0) / duration, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      setCount(Math.round(eased * feature.num));
-      if (p < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }, [triggered, shouldAnimate, feature.num]);
-
-  const display = String(count).padStart(2, "0");
-  const { Icon } = feature;
-
-  return (
-    <motion.div
-      className={`kt-col kt-col-${index + 1}`}
-      initial={shouldAnimate ? { opacity: 0, y: 28 } : undefined}
-      whileInView={shouldAnimate ? { opacity: 1, y: 0 } : undefined}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={
-        shouldAnimate
-          ? { duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: index * 0.15 }
-          : undefined
-      }
-    >
-      <span className="kt-ghost-num" aria-hidden="true">
-        {display}
-      </span>
-      <motion.div
-        className="kt-col-rule"
-        aria-hidden="true"
-        initial={shouldAnimate ? { scaleX: 0 } : undefined}
-        whileInView={shouldAnimate ? { scaleX: 1 } : undefined}
-        viewport={{ once: true }}
-        transition={
-          shouldAnimate
-            ? { duration: 0.5, ease: "easeOut", delay: index * 0.15 + 0.25 }
-            : undefined
-        }
-        style={{ transformOrigin: "left center" }}
-      />
-      <h3 className="kt-col-heading">{feature.heading}</h3>
-      <p className="kt-col-body">{feature.body}</p>
-      <Icon size={24} className="kt-col-icon" aria-hidden="true" />
-    </motion.div>
-  );
-}
-
-// ─── Styles ───────────────────────────────────────────────────────────────────
-
 const STYLES = `
-.kt-section {
-  position: relative;
-  background: linear-gradient(135deg, #8B6914 0%, #B8912A 40%, #9A7820 100%);
-  padding: 80px 80px;
+.wcu-section {
+  background: linear-gradient(135deg, #7A5510 0%, #B8912A 50%, #8B6914 100%);
+  padding: 0;
   box-sizing: border-box;
   overflow: hidden;
 }
 
-/* Grain overlay */
-.kt-grain {
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.03;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ── Top row ── */
-.kt-top-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 48px;
-  position: relative;
-  z-index: 1;
-}
-.kt-top-left {
-  display: flex;
-  flex-direction: column;
-}
-.kt-label {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.70);
-  margin-bottom: 20px;
+.wcu-wave {
   display: block;
-}
-.kt-h2 {
-  font-family: var(--font-heading);
-  font-size: clamp(28px, 3vw, 40px);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  color: #ffffff;
-  line-height: 1.15;
-  max-width: 560px;
-  margin: 0;
-}
-.kt-h2-word-wrap {
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: bottom;
-  margin-right: 0.25em;
-  line-height: 1.25;
-}
-.kt-h2-word {
-  display: inline-block;
-}
-.kt-top-right {
-  font-family: var(--font-heading);
-  font-style: italic;
-  font-size: 18px;
-  color: rgba(255,255,255,0.82);
-  max-width: 280px;
-  text-align: right;
-  line-height: 1.5;
-  margin: 0;
-  margin-bottom: 4px;
-  align-self: flex-end;
+  line-height: 0;
+  font-size: 0;
 }
 
-/* ── Grid (5 tracks: col | divider | col | divider | col) ── */
-.kt-grid {
+.wcu-wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(48px, 6vw, 80px) clamp(24px, 5vw, 80px);
   display: grid;
-  grid-template-columns: 1.2fr 1px 0.9fr 1px 1fr;
-  align-items: stretch;
-  position: relative;
-  z-index: 1;
-}
-.kt-vdivider {
-  width: 1px;
-  background: rgba(255,255,255,0.22);
-  align-self: stretch;
+  grid-template-columns: 44fr 56fr;
+  gap: clamp(48px, 6vw, 88px);
+  align-items: center;
 }
 
-/* ── Columns ── */
-.kt-col {
+/* ── Left column ── */
+.wcu-left {
   display: flex;
   flex-direction: column;
-  cursor: default;
+  gap: 20px;
 }
-.kt-col-1 { padding: 32px 40px 32px 0; }
-.kt-col-2 { padding: 32px 40px; }
-.kt-col-3 { padding: 32px 0 32px 40px; }
 
-/* Ghost number */
-.kt-ghost-num {
-  font-family: var(--font-heading);
-  font-size: 72px;
-  font-weight: 700;
-  color: rgba(255,255,255,1);
-  opacity: 0.15;
-  line-height: 1;
-  margin-bottom: -16px;
-  display: block;
-  transition: opacity 0.4s ease;
-  font-variant-numeric: tabular-nums;
+.wcu-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-.kt-col:hover .kt-ghost-num { opacity: 0.28; }
-
-/* Gold rule */
-.kt-col-rule {
-  width: 40px;
-  height: 1px;
-  background: rgba(255,255,255,0.70);
-  margin-bottom: 28px;
+.wcu-eyebrow-line {
+  width: 28px;
+  height: 1.5px;
+  background: rgba(255, 255, 255, 0.6);
   flex-shrink: 0;
-  transition: width 0.4s ease;
 }
-.kt-col:hover .kt-col-rule { width: 72px; }
-
-/* Heading */
-.kt-col-heading {
-  font-family: var(--font-heading);
-  font-size: 28px;
+.wcu-eyebrow-text {
+  font-family: var(--font-body);
+  font-size: 10.5px;
   font-weight: 700;
-  color: #ffffff;
-  line-height: 1.2;
-  margin: 0 0 16px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
 }
 
-/* Body */
-.kt-col-body {
+.wcu-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 3.2vw, 46px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.06;
+  color: #ffffff;
+  margin: 0;
+}
+
+.wcu-intro {
   font-family: var(--font-body);
   font-size: 15px;
-  color: rgba(255,255,255,0.82);
-  line-height: 1.75;
+  line-height: 1.82;
+  color: rgba(255, 255, 255, 0.88);
   margin: 0;
-  flex: 1;
 }
 
-/* Icon */
-.kt-col-icon {
-  color: rgba(255,255,255,0.70);
-  margin-top: auto;
-  padding-top: 32px;
-  opacity: 0.45;
+/* 3:2 landscape image — balanced against 2×2 card grid */
+.wcu-img-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.15),
+    0 10px 28px rgba(0,0,0,0.28),
+    0 32px 72px rgba(0,0,0,0.32);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+.wcu-img-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── Right column: scattered cards ── */
+.wcu-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 24px 16px;
+}
+
+.wcu-card {
+  background: rgba(18, 14, 6, 0.90);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 26px 20px;
+  cursor: default;
+  transition:
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.45s ease,
+    border-color 0.45s ease;
+  box-shadow:
+    0 4px 14px rgba(0,0,0,0.35),
+    0 14px 36px rgba(0,0,0,0.3);
+  will-change: transform;
+}
+
+.wcu-card:nth-child(1) { transform: rotate(-6deg) translate(-10px, 6px); }
+.wcu-card:nth-child(2) { transform: rotate(5deg) translate(10px, -10px); }
+.wcu-card:nth-child(3) { transform: rotate(-4deg) translate(-8px, 10px); }
+.wcu-card:nth-child(4) { transform: rotate(6deg) translate(8px, -6px); }
+
+.wcu-card:hover {
+  transform: rotate(0deg) translate(0, -10px) !important;
+  border-color: rgba(255, 255, 255, 0.32);
+  box-shadow:
+    0 24px 56px rgba(0,0,0,0.45),
+    0 0 0 1px rgba(255,255,255,0.18);
+  position: relative;
+  z-index: 10;
+}
+
+.wcu-card-num {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 18px;
   flex-shrink: 0;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.kt-col:hover .kt-col-icon {
-  opacity: 1;
-  transform: scale(1.2);
 }
 
-/* ── Tablet (below 1024px): stack columns ── */
+.wcu-card-title {
+  font-family: var(--font-heading);
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #F0E6CE;
+  margin: 0 0 9px;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.wcu-card-body {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.74;
+  color: rgba(200, 185, 150, 0.9);
+  margin: 0;
+}
+
+/* ── Responsive ── */
 @media (max-width: 1023px) {
-  .kt-section { padding: 60px 40px; }
-  .kt-top-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-    margin-bottom: 40px;
-  }
-  .kt-top-right { text-align: left; max-width: 100%; align-self: auto; margin-bottom: 0; }
-  .kt-grid { grid-template-columns: 1fr; }
-  .kt-vdivider { width: 100%; height: 1px; align-self: auto; }
-  .kt-col-1,
-  .kt-col-2,
-  .kt-col-3 { padding: 28px 0; }
+  .wcu-wrap { gap: 40px; }
 }
 
-/* ── Mobile ── */
 @media (max-width: 767px) {
-  .kt-section { padding: 60px 24px; }
-  .kt-top-row { margin-bottom: 36px; }
-  .kt-col-1,
-  .kt-col-2,
-  .kt-col-3 { padding: 24px 0; }
+  .wcu-wrap {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+  .wcu-cards {
+    padding: 8px 0;
+    gap: 16px;
+  }
+  .wcu-card:nth-child(1),
+  .wcu-card:nth-child(2),
+  .wcu-card:nth-child(3),
+  .wcu-card:nth-child(4) {
+    transform: none !important;
+  }
 }
 
-/* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
-  .kt-ghost-num,
-  .kt-col-rule,
-  .kt-col-icon { transition: none !important; }
+  .wcu-card { transition: none !important; }
+  .wcu-card:hover { transform: none !important; }
 }
 `;
 
-// ─── Component ────────────────────────────────────────────────────────────────
+const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
+
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true as const, margin: "-40px" },
+  transition: { duration: 0.6, ease: EASE, delay },
+});
 
 export default function KoreanTech() {
   const reduce = useReducedMotion();
   const sa = reduce !== true;
 
-  const [triggered, setTriggered] = useState(false);
-  const gridRef = useRef<HTMLDivElement>(null);
-
-  // Imperative quote entry + infinite breathing float
-  const [quoteScope, animateQuote] = useAnimate<HTMLParagraphElement>();
-  const quoteInView = useInView(quoteScope, { once: true, margin: "-80px" });
-
-  useEffect(() => {
-    if (!quoteInView || !sa) return;
-    const entryDelay = H2_WORDS.length * 0.07 + 0.2;
-    const run = async () => {
-      await animateQuote(
-        quoteScope.current,
-        { opacity: 1, y: 0 },
-        { duration: 0.6, delay: entryDelay, ease: [0.16, 1, 0.3, 1] }
-      );
-      animateQuote(quoteScope.current, { y: [0, -5, 0] }, {
-        duration: 4,
-        ease: "easeInOut",
-        repeat: Infinity,
-      });
-    };
-    run();
-  }, [quoteInView, sa, animateQuote, quoteScope]);
-
-  useEffect(() => {
-    const el = gridRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTriggered(true);
-          obs.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
   return (
-    <section aria-labelledby="kt-heading" className="kt-section">
+    <section aria-labelledby="wcu-heading" className="wcu-section">
       <style>{STYLES}</style>
-      <div className="kt-grain" aria-hidden="true" />
 
-      {/* ── Top row ─────────────────────────────────────────────────── */}
-      <div className="kt-top-row">
-        <div className="kt-top-left">
-          <motion.span
-            className="kt-label"
-            initial={sa ? { opacity: 0, y: 10 } : undefined}
-            whileInView={sa ? { opacity: 1, y: 0 } : undefined}
-            viewport={{ once: true }}
-            transition={sa ? { duration: 0.5, ease: [0.16, 1, 0.3, 1] } : undefined}
-          >
-            WHY PATIENTS CHOOSE US
-          </motion.span>
-
-          <h2
-            id="kt-heading"
-            className="kt-h2"
-            aria-label="The Gold Standard of Korean Innovation"
-          >
-            {H2_WORDS.map((word, i) => (
-              <span key={i} className="kt-h2-word-wrap" aria-hidden="true">
-                <motion.span
-                  className="kt-h2-word"
-                  initial={sa ? { opacity: 0, y: "100%" } : undefined}
-                  whileInView={sa ? { opacity: 1, y: 0 } : undefined}
-                  viewport={{ once: true }}
-                  transition={
-                    sa
-                      ? { duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: i * 0.07 }
-                      : undefined
-                  }
-                >
-                  {word}
-                </motion.span>
-              </span>
-            ))}
-          </h2>
-        </div>
-
-        <motion.p
-          ref={quoteScope}
-          className="kt-top-right"
-          initial={sa ? { opacity: 0, y: 8 } : undefined}
+      {/* Top wave: bg-color curves down into the gold section */}
+      <div className="wcu-wave" aria-hidden="true">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1440 100"
+          preserveAspectRatio="none"
+          style={{ display: "block", width: "100%", height: "100px" }}
         >
-          <em>
-            The same protocols used in Seoul&apos;s most prestigious clinics —
-            now in Pokhara.
-          </em>
-        </motion.p>
+          <path d="M0,0 L1440,0 C1080,100 360,100 0,0 Z" fill="var(--color-bg)" />
+        </svg>
       </div>
 
-      {/* ── Feature grid ────────────────────────────────────────────── */}
-      <div className="kt-grid" ref={gridRef}>
-        <FeatureColumn
-          feature={FEATURES[0]}
-          index={0}
-          shouldAnimate={sa}
-          triggered={triggered}
-        />
-        <motion.div
-          className="kt-vdivider"
-          aria-hidden="true"
-          initial={sa ? { scaleY: 0 } : undefined}
-          whileInView={sa ? { scaleY: 1 } : undefined}
-          viewport={{ once: true }}
-          transition={sa ? { duration: 0.9, ease: "easeOut", delay: 0.5 } : undefined}
-          style={{ transformOrigin: "top" }}
-        />
-        <FeatureColumn
-          feature={FEATURES[1]}
-          index={1}
-          shouldAnimate={sa}
-          triggered={triggered}
-        />
-        <motion.div
-          className="kt-vdivider"
-          aria-hidden="true"
-          initial={sa ? { scaleY: 0 } : undefined}
-          whileInView={sa ? { scaleY: 1 } : undefined}
-          viewport={{ once: true }}
-          transition={sa ? { duration: 0.9, ease: "easeOut", delay: 0.65 } : undefined}
-          style={{ transformOrigin: "top" }}
-        />
-        <FeatureColumn
-          feature={FEATURES[2]}
-          index={2}
-          shouldAnimate={sa}
-          triggered={triggered}
-        />
+      <div className="wcu-wrap">
+        {/* Left: text + square photo */}
+        <div className="wcu-left">
+          <motion.div className="wcu-eyebrow" {...(sa ? fadeUp(0) : {})}>
+            <span className="wcu-eyebrow-line" aria-hidden="true" />
+            <span className="wcu-eyebrow-text">Why Derma Dynamics</span>
+          </motion.div>
+
+          <motion.h2
+            id="wcu-heading"
+            className="wcu-heading"
+            {...(sa ? fadeUp(0.07) : {})}
+          >
+            You Deserve More Than<br />a Generic Clinic
+          </motion.h2>
+
+          <motion.p className="wcu-intro" {...(sa ? fadeUp(0.14) : {})}>
+            We&apos;re not a general practice that does skin on the side. Derma
+            Dynamics exists for one thing: helping your skin thrive.
+          </motion.p>
+
+          <motion.div
+            className="wcu-img-frame"
+            {...(sa ? fadeUp(0.22) : {})}
+          >
+            <Image
+              src="/brand_assets/whychooseus.png"
+              alt="Dr. Uma Keyal and Dr. Anil, Derma Dynamics specialists"
+              fill
+              unoptimized
+              sizes="(max-width: 767px) 100vw, (max-width: 1023px) 44vw, 42vw"
+              style={{ objectFit: "cover", objectPosition: "center center" }}
+              priority={false}
+            />
+          </motion.div>
+        </div>
+
+        {/* Right: scattered feature cards */}
+        <div className="wcu-cards">
+          {FEATURES.map(({ num, title, body }, i) => (
+            <motion.div
+              key={num}
+              {...(sa ? {
+                initial: { opacity: 0, y: 32 },
+                whileInView: { opacity: 1, y: 0 },
+                viewport: { once: true, margin: "-20px" },
+                transition: {
+                  duration: 0.55,
+                  ease: EASE,
+                  delay: 0.08 + i * 0.1,
+                },
+              } : {})}
+            >
+              <div className="wcu-card">
+                <div className="wcu-card-num" aria-hidden="true">{num}</div>
+                <h3 className="wcu-card-title">{title}</h3>
+                <p className="wcu-card-body">{body}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Bottom wave: bg-color scoops up from the gold section into testimonials */}
+      <div className="wcu-wave" aria-hidden="true">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1440 100"
+          preserveAspectRatio="none"
+          style={{ display: "block", width: "100%", height: "100px" }}
+        >
+          <path d="M0,100 L1440,100 C1080,0 360,0 0,100 Z" fill="var(--color-bg)" />
+        </svg>
       </div>
     </section>
   );

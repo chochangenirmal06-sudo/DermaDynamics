@@ -5,53 +5,67 @@ import { motion, useReducedMotion } from "framer-motion";
 const TESTIMONIALS = [
   {
     quote:
-      "I was so nervous about my first Botox treatment. Dr. Jyoti took time to explain everything and the results look completely natural — refreshed, never frozen.",
-    name: "Priya S.",
+      "I was totally scared about my face, frustrated and depressed because of pimples. But you helped me get clear, glowing skin with smooth texture in just 2 months. Can't imagine how fast I healed. Life-savers, truly.",
+    name: "Pankaj Roniyar",
     location: "Pokhara",
-    doctor: "Dr. Jyoti Gurung",
-    treatment: "Botox",
     stars: 5,
-    initials: "PS",
+    initials: "PR",
   },
   {
     quote:
-      "The HydraFacial was unlike any facial I've ever had. My skin glowed for weeks afterwards. The clinic feels genuinely medical — not just a beauty parlour.",
-    name: "Aarav M.",
-    location: "Kathmandu",
-    doctor: "Dr. Rakshya",
-    treatment: "HydraFacial",
-    stars: 5,
-    initials: "AM",
-  },
-  {
-    quote:
-      "Three sessions of skin peeling and my dark spots from years of sun damage have nearly disappeared. I wish I had come here sooner. Absolutely worth every rupee.",
-    name: "Sunita K.",
+      "I had acne for almost 5 years. After just one round of treatment, everything cleared up. Great facility, very welcoming team. Best clinic.",
+    name: "Dikshya Pandey",
     location: "Pokhara",
-    doctor: "Dr. Anil Kumar Bhatta",
-    treatment: "Skin Peeling",
     stars: 5,
-    initials: "SK",
+    initials: "DP",
   },
   {
     quote:
-      "My lip filler looks so natural — exactly what I asked for. No one can tell I've had anything done, they just say I look amazing. Real artistry from Dr. Jyoti.",
-    name: "Roshani T.",
-    location: "Butwal",
-    doctor: "Dr. Jyoti Gurung",
-    treatment: "Lip Filler",
-    stars: 5,
-    initials: "RT",
-  },
-  {
-    quote:
-      "After years of painful waxing, the laser hair removal has been life-changing. The results after just four sessions are already incredible. No regrets whatsoever.",
-    name: "Deepak B.",
+      "Nepal's best skin clinic. The entire team, as well as the doctor, has a lot of experience. I am quite pleased with every service provided.",
+    name: "Pradeep Adhikari",
     location: "Pokhara",
-    doctor: "Dr. Rakshya",
-    treatment: "Laser Hair Removal",
     stars: 5,
-    initials: "DB",
+    initials: "PA",
+  },
+  {
+    quote:
+      "Best skin clinic for skin treatment. Highly recommend visiting Dr. Anil Kumar Bhatta, the best skin doctor in Nepal.",
+    name: "Barsha Kunwar",
+    location: "Pokhara",
+    stars: 5,
+    initials: "BK",
+  },
+  {
+    quote:
+      "I'd recommend this place to anyone with skin issues. Wide range of treatments at affordable prices, and every member of the team is experienced and professional.",
+    name: "Kamal Malla",
+    location: "Pokhara",
+    stars: 5,
+    initials: "KM",
+  },
+  {
+    quote:
+      "My 5-year acne problem solved in just 2 months. Best service ever. Best clinic.",
+    name: "Richa Shrestha",
+    location: "Pokhara",
+    stars: 5,
+    initials: "RS",
+  },
+  {
+    quote:
+      "Experience is very good. Staff is highly experienced. If you have any skin issue, please visit. I'm very happy with the care I received.",
+    name: "Dilip",
+    location: "Pokhara",
+    stars: 5,
+    initials: "D",
+  },
+  {
+    quote:
+      "Visit once and you'll automatically come back. Such a wonderful place.",
+    name: "Bijaya Giri",
+    location: "Pokhara",
+    stars: 5,
+    initials: "BG",
   },
 ];
 
@@ -66,19 +80,16 @@ function TestimonialCard({
 }) {
   return (
     <div className="tm-card" key={id} aria-hidden={ariaHidden || undefined}>
-      <div className="tm-quote-icon" aria-hidden="true">&ldquo;</div>
+      <div className="tm-stars" aria-label={`${t.stars} out of 5 stars`}>
+        {"★".repeat(t.stars)}
+      </div>
       <p className="tm-quote">{t.quote}</p>
       <div className="tm-footer">
         <div className="tm-avatar" aria-hidden="true">{t.initials}</div>
         <div className="tm-meta">
-          <span className="tm-name">
-            {t.name}, {t.location}
-          </span>
-          <span className="tm-doctor">Treated by {t.doctor}</span>
+          <span className="tm-name">{t.name}</span>
+          <span className="tm-doctor">Google Review</span>
         </div>
-      </div>
-      <div className="tm-stars" aria-label={`${t.stars} out of 5 stars`}>
-        {"★".repeat(t.stars)}
       </div>
     </div>
   );
@@ -208,8 +219,13 @@ export default function Testimonials() {
           gap: 24px;
           will-change: transform;
         }
-        .tm-track-left  { animation: marquee-left  32s linear infinite; }
-        .tm-track-right { animation: marquee-right 36s linear infinite; }
+        .tm-track-left  { animation: marquee-left  52s linear infinite; }
+        .tm-track-right { animation: marquee-right 60s linear infinite; }
+
+        /* Pause only the row being hovered — other row keeps scrolling */
+        .tm-row-wrap:hover .tm-track {
+          animation-play-state: paused;
+        }
 
         /* ── Card ── */
         .tm-card {
@@ -383,7 +399,7 @@ export default function Testimonials() {
           </h2>
           <div className="tm-google-pill">
             <span className="tm-google-stars" aria-hidden="true">★★★★★</span>
-            <span>4.8 on Google · 500+ reviews</span>
+            <span>5.0 rating · Verified Google Reviews</span>
           </div>
         </motion.div>
       </div>

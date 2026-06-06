@@ -38,7 +38,7 @@ export default function FAQBranches() {
   return (
     <section
       aria-labelledby="faq-heading"
-      style={{ backgroundColor: "var(--color-bg)", padding: "96px 0" }}
+      style={{ backgroundColor: "var(--color-accent)", padding: "96px 0" }}
     >
       <style>{`
         .fb-container {
@@ -62,7 +62,7 @@ export default function FAQBranches() {
           font-weight: 500;
           letter-spacing: 0.14em;
           text-transform: uppercase;
-          color: var(--color-accent);
+          color: rgba(0,0,0,0.65);
           display: block;
           margin-bottom: 12px;
         }
@@ -71,7 +71,7 @@ export default function FAQBranches() {
           font-weight: 700;
           font-size: clamp(32px, 4vw, 44px);
           letter-spacing: -0.03em;
-          color: var(--color-heading);
+          color: #1a1306;
           line-height: 1.15;
           margin: 0 0 12px;
         }
@@ -80,7 +80,7 @@ export default function FAQBranches() {
           font-weight: 400;
           font-style: italic;
           font-size: 17px;
-          color: var(--color-decorative);
+          color: rgba(0,0,0,0.55);
           margin: 0 0 40px;
         }
 
@@ -96,8 +96,8 @@ export default function FAQBranches() {
           cursor: pointer;
         }
         .faq-item.open {
-          border-color: var(--color-accent);
-          box-shadow: var(--shadow-gold);
+          border-color: rgba(0,0,0,0.35);
+          box-shadow: 0 8px 32px rgba(0,0,0,0.28), 0 2px 8px rgba(0,0,0,0.18);
         }
         .faq-item:last-child { margin-bottom: 0; }
 

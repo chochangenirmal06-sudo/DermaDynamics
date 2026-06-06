@@ -43,9 +43,9 @@ export type SocialLink = {
 
 export const NAV_LINKS: NavLink[] = [
   { label: "Home",     href: "/" },
-  { label: "Services", href: "/services" },
+  { label: "Treatments", href: "/services" },
   { label: "About",    href: "/about" },
-  { label: "Gallery",  href: "/#gallery" },
+  { label: "Gallery",  href: "/gallery" },
   { label: "Contact",  href: "/contact" },
 ];
 
@@ -206,7 +206,9 @@ export const CONTACT_INFO: ContactInfo = {
 export const TAGLINE = "Where Science Meets Your Skin";
 
 export const SOCIAL_LINKS: SocialLink[] = [
-  { platform: "Facebook",  href: "#" },
-  { platform: "Instagram", href: "#" },
-  { platform: "TikTok",    href: "#" },
+  { platform: "Facebook",  href: "https://www.facebook.com/derm.dynamics/" },
+  { platform: "Instagram", href: "https://www.instagram.com/dermdynamics/?hl=en" },
+  { platform: "TikTok",    href: "https://www.tiktok.com/@dermdynamics" },
+  { platform: "X",         href: "https://x.com/dranil_phd" },
+  { platform: "YouTube",   href: "https://www.youtube.com/c/DrAnilKumarBhattaPhD" },
 ];

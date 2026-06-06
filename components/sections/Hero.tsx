@@ -7,6 +7,46 @@ import Image from "next/image";
 import { CONTACT_INFO } from "@/lib/constants";
 import HeroVideoBackground from "@/components/sections/HeroVideoBackground";
 
+const TYPEWRITER_TERMS = [
+  "Acne & Scars",
+  "Botox & Fillers",
+  "Laser Hair Removal",
+  "Hair PRP",
+  "Skin Brightening",
+];
+
+function useTypewriter(terms: string[]) {
+  const [displayed, setDisplayed] = useState("");
+  const [termIdx, setTermIdx] = useState(0);
+  const [phase, setPhase] = useState<"typing" | "pause" | "deleting">("typing");
+
+  useEffect(() => {
+    const term = terms[termIdx];
+    let timeout: ReturnType<typeof setTimeout>;
+
+    if (phase === "typing") {
+      if (displayed.length < term.length) {
+        timeout = setTimeout(() => setDisplayed(term.slice(0, displayed.length + 1)), 70);
+      } else {
+        timeout = setTimeout(() => setPhase("pause"), 1400);
+      }
+    } else if (phase === "pause") {
+      timeout = setTimeout(() => setPhase("deleting"), 0);
+    } else {
+      if (displayed.length > 0) {
+        timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 40);
+      } else {
+        setTermIdx((i) => (i + 1) % terms.length);
+        setPhase("typing");
+      }
+    }
+
+    return () => clearTimeout(timeout);
+  }, [displayed, phase, termIdx, terms]);
+
+  return displayed;
+}
+
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(false);
   useEffect(() => {
@@ -133,9 +173,17 @@ function ScrollChevron() {
   );
 }
 
+const TRUST_BADGES = [
+  "Specialist-registered with Nepal Medical Council",
+  "PhD-qualified consultants",
+  "29+ published scientific papers",
+  "International training & awards",
+];
+
 export default function Hero() {
   const reduce = useReducedMotion();
   const isDesktop = useIsDesktop();
+  const typewritten = useTypewriter(TYPEWRITER_TERMS);
 
   const delay = (d: number) => ({
     initial: reduce ? undefined : { y: 24, opacity: 0 },
@@ -146,7 +194,7 @@ export default function Hero() {
   return (
     <section
       className="relative flex flex-col justify-center overflow-hidden"
-      style={{ minHeight: "78vh", backgroundColor: "#1C1812" }}
+      style={{ minHeight: "calc(100vh - 140px)", backgroundColor: "#1C1812" }}
       aria-label="Hero"
     >
       {/* Layer 1 — background photo (always present; mobile fallback when videos hidden) */}
@@ -182,59 +230,99 @@ export default function Hero() {
       )}
 
       <style>{`
-        .hero-content { padding-left: 20px; padding-right: 20px; }
-        @media (min-width: 768px) {
-          .hero-content { padding-left: clamp(48px, 8vw, 120px); padding-right: 0; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes badge-shine {
+          0% { transform: translateX(-120%) skewX(-15deg); opacity: 0; }
+          10% { opacity: 1; }
+          60%, 100% { transform: translateX(220%) skewX(-15deg); opacity: 0; }
+        }
+        @keyframes badge-pulse {
+          0%, 100% { box-shadow: 0 0 0px 0px rgba(184,145,42,0), inset 0 0 0px 0px rgba(184,145,42,0); }
+          50% { box-shadow: 0 0 14px 2px rgba(184,145,42,0.18), inset 0 0 8px 0px rgba(184,145,42,0.08); }
+        }
+        @keyframes sparkle-spin {
+          0% { transform: rotate(0deg) scale(1); opacity: 0.7; }
+          50% { transform: rotate(180deg) scale(1.3); opacity: 1; }
+          100% { transform: rotate(360deg) scale(1); opacity: 0.7; }
         }
       `}</style>
 
-      {/* Content */}
-      <div
-        className="hero-content relative z-10 py-24 w-full"
-        style={{ maxWidth: "680px", marginLeft: 0, marginRight: "auto" }}
-      >
-        <div>
+      {/* Content — full-width padded container, NOT percentage-clamped */}
+      <div className="relative z-10 w-full px-6 md:px-14 lg:px-24 pt-16 pb-28 md:pb-32">
 
-          {/* Label */}
-          <motion.p
-            className="font-body text-[12px] uppercase tracking-[0.18em] mb-5"
-            style={{ color: "rgba(250,248,245,0.80)" }}
-            {...delay(0)}
-          >
-            Pokhara&apos;s Premier Skin &amp; Aesthetic Clinic
-          </motion.p>
+        {/* Text column */}
+        <div className="max-w-[580px] lg:max-w-[680px]">
+
+          {/* Label badge */}
+          <motion.div className="mb-6 lg:mb-8" {...delay(0)}>
+            <div
+              className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full relative overflow-hidden"
+              style={{
+                background: "linear-gradient(135deg, rgba(184,145,42,0.18) 0%, rgba(28,24,18,0.55) 100%)",
+                border: "1px solid rgba(184,145,42,0.55)",
+                backdropFilter: "blur(14px)",
+                WebkitBackdropFilter: "blur(14px)",
+                animation: "badge-pulse 3.5s ease-in-out infinite",
+              }}
+            >
+              {/* shimmer sweep */}
+              <span
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "45%",
+                  height: "100%",
+                  background: "linear-gradient(90deg, transparent 0%, rgba(255,220,120,0.30) 50%, transparent 100%)",
+                  animation: "badge-shine 3.5s ease-in-out infinite",
+                  pointerEvents: "none",
+                }}
+              />
+              <span
+                className="font-body text-[11px] sm:text-[12px] lg:text-[13px] uppercase tracking-[0.20em] relative"
+                style={{
+                  background: "linear-gradient(90deg, rgba(230,205,140,0.95) 0%, rgba(255,240,180,1) 50%, rgba(230,205,140,0.95) 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                Advanced Dermatology &amp; Aesthetic Excellence
+              </span>
+            </div>
+          </motion.div>
 
           {/* H1 */}
           <motion.h1
-            className="font-heading font-bold leading-[1.08] mb-5"
+            className="font-heading font-bold leading-[1.05] mb-6 lg:mb-8"
             style={{ color: "white" }}
             {...delay(0.15)}
           >
-            <span className="block text-[40px] sm:text-[52px] lg:text-[72px]" style={{ letterSpacing: "-0.03em" }}>
-              Reveal Your Skin&apos;s
+            <span className="block text-[42px] sm:text-[58px] lg:text-[76px] xl:text-[88px]" style={{ letterSpacing: "-0.03em" }}>
+              We treat:
             </span>
             <span
-              className="block text-[40px] sm:text-[52px] lg:text-[72px]"
+              className="block text-[42px] sm:text-[58px] lg:text-[76px] xl:text-[88px]"
               style={{ color: "var(--color-accent)", letterSpacing: "-0.03em" }}
             >
-              True Radiance.
+              {typewritten}
+              <span aria-hidden="true" style={{ borderRight: "3px solid var(--color-accent)", marginLeft: "2px", display: "inline-block", animation: "blink 1s step-end infinite" }} />
             </span>
           </motion.h1>
 
-          {/* Italic subline */}
+          {/* Body */}
           <motion.p
-            className="font-heading leading-[1.55] mb-10 text-[16px] sm:text-[18px] lg:text-[22px]"
+            className="font-heading leading-relaxed mb-10 text-[16px] sm:text-[18px] lg:text-[21px] xl:text-[23px]"
             style={{ color: "rgba(255,255,255,0.75)" }}
             {...delay(0.3)}
           >
-            Science-backed treatments. Medically trained experts.
-            <br className="hidden sm:block" />
-            Results that last — in the heart of Pokhara.
+            Expert care for your skin, hair, and nails, delivered by internationally trained dermatologists with a personal touch. From medical dermatology to cutting-edge cosmetic treatments, we&apos;re Nepal&apos;s trusted destination for results that last.
           </motion.p>
 
           {/* CTAs */}
           <motion.div
-            className="flex flex-wrap items-center gap-4 mb-10"
+            className="flex flex-wrap items-center gap-4"
             {...delay(0.45)}
           >
             <a
@@ -244,7 +332,7 @@ export default function Hero() {
               className="inline-flex items-center justify-center px-7 min-h-[52px] rounded-sm font-body font-medium text-[15px] bg-accent hover:bg-accent-dark [transition:background-color_0.2s_ease,transform_0.2s_ease,box-shadow_0.2s_ease] hover:-translate-y-px cursor-pointer touch-manipulation"
               style={{ color: "white", boxShadow: "var(--shadow-gold)" }}
             >
-              Book Your Appointment →
+              Request an Appointment →
             </a>
             <a
               href="/services"
@@ -259,36 +347,83 @@ export default function Hero() {
             </a>
           </motion.div>
 
-          {/* Trust badge */}
-          <motion.div {...delay(0.6)}>
-            <div
-              className="inline-flex items-center gap-2"
-              style={{
-                backgroundColor: "rgba(28,24,18,0.55)",
-                border: "1px solid rgba(250,248,245,0.15)",
-                borderRadius: "9999px",
-                padding: "8px 16px",
-                backdropFilter: "blur(8px)",
-              }}
-            >
-              <div className="flex gap-[3px]" role="img" aria-label="4.8 stars out of 5">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="#B8912A" aria-hidden="true">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="font-body text-[13px]" style={{ color: "rgba(255,255,255,0.5)" }}>
-                4.8★ on Google &middot; Trusted by 500+ patients in Pokhara
-              </p>
-            </div>
-          </motion.div>
-
         </div>
+
+        {/* Credential panel */}
+        <motion.div className="mt-10 max-w-[680px] lg:max-w-none" {...delay(0.6)}>
+          <div
+            className="rounded-xl overflow-hidden"
+            style={{
+              borderTop: "1px solid rgba(184,145,42,0.45)",
+              borderRight: "1px solid rgba(255,255,255,0.07)",
+              borderBottom: "1px solid rgba(255,255,255,0.07)",
+              borderLeft: "1px solid rgba(255,255,255,0.07)",
+              background: "rgba(255,255,255,0.05)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+            }}
+          >
+            {/* Mobile: 2×2 grid */}
+            <div className="grid grid-cols-2 lg:hidden">
+              {TRUST_BADGES.map((badge, i) => (
+                <div
+                  key={i}
+                  className="px-4 py-3.5 flex items-start gap-2"
+                  style={{
+                    borderLeft: i % 2 === 1 ? "1px solid rgba(184,145,42,0.18)" : undefined,
+                    borderTop: i >= 2 ? "1px solid rgba(184,145,42,0.18)" : undefined,
+                  }}
+                >
+                  <span aria-hidden="true" style={{ color: "var(--color-accent)", fontSize: "7px", marginTop: "3px", flexShrink: 0 }}>✦</span>
+                  <span className="font-body text-[10px] uppercase tracking-wider leading-relaxed" style={{ color: "rgba(250,248,245,0.75)" }}>
+                    {badge}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop: single row, equal-width cells */}
+            <div className="hidden lg:flex">
+              {TRUST_BADGES.map((badge, i) => (
+                <div
+                  key={i}
+                  className="flex-1 px-5 py-4 flex items-start gap-2.5"
+                  style={{ borderLeft: i > 0 ? "1px solid rgba(184,145,42,0.18)" : undefined }}
+                >
+                  <span aria-hidden="true" style={{ color: "var(--color-accent)", fontSize: "7px", marginTop: "3px", flexShrink: 0 }}>✦</span>
+                  <span className="font-body text-[11px] xl:text-[12px] uppercase tracking-wider leading-relaxed" style={{ color: "rgba(250,248,245,0.75)" }}>
+                    {badge}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
       </div>
 
       {/* Scroll chevron */}
       {!reduce && <ScrollChevron />}
+
+      {/* Wave transition to next section */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] pointer-events-none"
+        style={{ zIndex: 20 }}
+      >
+        <svg
+          viewBox="0 0 1440 80"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+          className="block w-full"
+          style={{ height: "clamp(40px, 5vw, 80px)" }}
+        >
+          <path
+            d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z"
+            fill="var(--color-accent)"
+          />
+        </svg>
+      </div>
     </section>
   );
 }

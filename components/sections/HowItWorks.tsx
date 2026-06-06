@@ -30,7 +30,7 @@ const STEPS = [
       "Every treatment begins with a personal consultation. Your doctor listens carefully to your concerns, assesses your skin, and designs a treatment plan built around your goals.",
     bullets: [
       "One-on-one time with a medically trained doctor",
-      "No pressure — just honest, expert advice tailored to you",
+      "No pressure, just honest, expert advice tailored to you",
       "Your skin type, concerns, and desired results are fully discussed",
     ],
     image: "/brand_assets/step2-opt.jpg",
@@ -57,7 +57,7 @@ const STEPS = [
     goldWord: "See Your",
     darkWord: "Results",
     description:
-      "Watch your skin transform. Most patients notice visible improvements after their first session, with results continuing to build over time — leaving you glowing with confidence.",
+      "Watch your skin transform. Most patients notice visible improvements after their first session, with results continuing to build over time, leaving you glowing with confidence.",
     bullets: [
       "Visible improvements from the very first session",
       "Personalised aftercare guidance provided after every treatment",
@@ -362,8 +362,8 @@ export default function HowItWorks() {
         >
           <span className="hiw-pill">How It Works</span>
           <h2 id="hiw-heading" className="hiw-heading">
-            Everything You Need to<br />
-            <span style={{ color: "var(--color-accent)" }}>Attract, Book &amp; Grow</span>
+            From your first message<br />
+            <span style={{ color: "var(--color-accent)" }}>to glowing results</span>
           </h2>
         </motion.div>
 

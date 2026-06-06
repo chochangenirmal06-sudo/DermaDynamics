@@ -212,7 +212,6 @@ function ServiceCard({ service }: { service: ServiceItem }) {
       )}
 
       <div className="svc-content">
-        <span className="svc-num">{service.num}</span>
         <h3 className="svc-name">{service.name}</h3>
         <p className="svc-desc">{service.desc}</p>
         <span className="svc-btn">Book this treatment →</span>
@@ -288,6 +287,7 @@ const STYLES = `
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
   transition: transform 0.5s ease;
   display: block;
 }
@@ -297,7 +297,15 @@ const STYLES = `
 .svc-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(28,24,18,0.08) 0%, rgba(28,24,18,0.72) 100%);
+  background: linear-gradient(
+    to bottom,
+    transparent              0%,
+    transparent             38%,
+    rgba(0,0,0,0.45)        58%,
+    rgba(0,0,0,0.80)        72%,
+    rgba(0,0,0,0.94)        85%,
+    rgba(0,0,0,1.00)       100%
+  );
   pointer-events: none;
 }
 /* Extra darkening layer on hover */
@@ -305,9 +313,9 @@ const STYLES = `
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(28,24,18,0.10) 0%, rgba(28,24,18,0.16) 100%);
+  background: rgba(0,0,0,0.10);
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.35s ease;
   pointer-events: none;
 }
 .svc-card--image:hover::after {
@@ -351,16 +359,6 @@ const STYLES = `
   gap: 4px;
   z-index: 1;
 }
-.svc-num {
-  font-family: var(--font-body);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  margin-bottom: 4px;
-  display: block;
-}
-.svc-card--image .svc-num  { color: rgba(255,255,255,0.50); }
-.svc-card--placeholder .svc-num { color: var(--color-accent); opacity: 0.6; }
-
 .svc-name {
   font-family: var(--font-heading);
   font-size: 22px;

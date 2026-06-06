@@ -65,14 +65,14 @@ export default function Navbar() {
         ].join(" ")}
         style={!scrolled ? { backgroundColor: "transparent", borderColor: "transparent" } : undefined}
       >
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 h-[72px] flex items-center justify-between">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 h-[140px] flex items-center justify-between">
           <Link href="/" aria-label="Derma Dynamics — return to homepage">
             <Image
               src="/brand_assets/logo.png"
               alt="Derma Dynamics — Where Science Meets Your Skin"
               width={798}
               height={704}
-              className="h-12 w-auto"
+              className="h-[100px] w-auto"
               priority
               unoptimized
             />

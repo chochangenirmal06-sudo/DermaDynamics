@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -14,9 +14,9 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-const jakarta = Plus_Jakarta_Sans({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["300", "400"],
   variable: "--font-body",
   display: "swap",
 });
@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${jakarta.variable} h-full antialiased`}>
+    <html lang="en" className={`${cormorant.variable} ${dmSans.variable} h-full antialiased`}>
       <head>
         {/* Anti-flash: read localStorage + system preference before React hydrates */}
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('dd-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})();` }} />
@@ -40,7 +40,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
           <Navbar />
-          <main id="main-content" className="pt-20">
+          <main id="main-content" className="pt-[140px]">
             {children}
           </main>
           <Footer />

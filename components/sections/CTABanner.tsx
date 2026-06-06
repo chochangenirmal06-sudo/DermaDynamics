@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { MapPin, Clock, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
 import { CONTACT_INFO } from "@/lib/constants";
 
 function CheckIcon() {
@@ -54,26 +54,31 @@ function DecorativePattern() {
 const TRUST_POINTS = [
   "Medically trained & certified doctors",
   "Advanced Korean laser technology",
-  "500+ patients treated in Pokhara",
-  "Free consultation — no obligation",
+  "500+ patients treated",
+  "Personalised treatment plans",
 ];
 
 const BRANCHES = [
   {
     name: "Derma Dynamics Pokhara",
     city: "Pokhara",
-    address: "New Road, Pokhara, Nepal",
-    hours: "Sun–Fri: 10:00 AM – 6:00 PM",
-    wa: "https://wa.me/977061591803",
+    address: "New Rd, Pokhara 33700 · Bhat-Bhateni Supermarket",
+    hours: "Open daily: 10:00 AM – 5:30 PM",
     tel: "tel:061591803",
+  },
+  {
+    name: "Derma Dynamics Lalitpur",
+    city: "Lalitpur",
+    address: "Lagankhel Satdobato Rd, Lalitpur 44600",
+    hours: "Sun–Fri: 10:00 AM – 6:00 PM · Sat: Closed",
+    tel: "tel:015908320",
   },
   {
     name: "Derma Dynamics Dhangadhi",
     city: "Dhangadhi",
-    address: "Taranagar-5, opposite Axis College",
-    hours: "Sun–Fri: 10:00 AM – 6:00 PM",
-    wa: "https://wa.me/977061591803",
-    tel: "tel:061591803",
+    address: "Campus Road Marg, Dhangadhi 10900",
+    hours: "Open daily: 10:00 AM – 6:00 PM",
+    tel: "tel:091590718",
   },
 ];
 
@@ -95,11 +100,11 @@ export default function CTABanner() {
           overflow: hidden;
           box-shadow: 0 32px 80px rgba(28,24,18,0.22), 0 8px 24px rgba(28,24,18,0.14);
           background: linear-gradient(135deg, #8B6914 0%, #B8912A 40%, #9A7820 100%);
-          display: grid;
-          grid-template-columns: 58% 42%;
         }
         .cta-left {
-          padding: 56px;
+          padding: 56px 56px 52px;
+          position: relative;
+          text-align: center;
         }
         .cta-label {
           font-family: var(--font-body);
@@ -128,11 +133,12 @@ export default function CTABanner() {
           margin: 0 0 32px;
         }
         .cta-trust-grid {
-          display: grid;
+          display: inline-grid;
           grid-template-columns: 1fr 1fr;
           row-gap: 12px;
-          column-gap: 24px;
+          column-gap: 32px;
           margin-bottom: 40px;
+          text-align: left;
         }
         .cta-trust-item {
           display: flex;
@@ -149,6 +155,7 @@ export default function CTABanner() {
         .cta-row {
           display: flex;
           align-items: center;
+          justify-content: center;
           gap: 16px;
           flex-wrap: wrap;
         }
@@ -198,43 +205,37 @@ export default function CTABanner() {
           white-space: nowrap;
         }
 
-        /* ── Right column — branches ── */
-        .cta-right {
-          position: relative;
-          overflow: hidden;
-        }
-        .cta-branches {
-          position: relative;
-          z-index: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
+        /* ── Branches below card ── */
+        .cta-branches-wrap {
+          max-width: 1100px;
+          margin: 24px auto 0;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
           gap: 14px;
-          height: 100%;
-          padding: 36px 32px 36px 20px;
-          box-sizing: border-box;
         }
 
-        /* Glassmorphism branch card */
         .cta-branch-card {
-          background: rgba(255, 255, 255, 0.10);
-          backdrop-filter: blur(18px);
-          -webkit-backdrop-filter: blur(18px);
-          border: 1px solid rgba(255, 255, 255, 0.22);
+          background: var(--color-card);
+          border: 1px solid var(--color-border);
+          border-top: 2px solid rgba(184,145,42,0.55);
           border-radius: 14px;
-          padding: 20px 22px;
-          box-shadow: 0 4px 20px rgba(28,24,18,0.12), inset 0 1px 0 rgba(255,255,255,0.15);
-          transition: background 0.2s ease, border-color 0.2s ease;
+          overflow: hidden;
+          box-shadow: 0 2px 12px rgba(28,24,18,0.07);
+          transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
         .cta-branch-card:hover {
-          background: rgba(255, 255, 255, 0.15);
-          border-color: rgba(255, 255, 255, 0.32);
+          border-color: rgba(184,145,42,0.85);
+          border-top-color: var(--color-accent);
+          box-shadow: 0 6px 28px rgba(184,145,42,0.14);
+        }
+        .cta-branch-body {
+          padding: 20px 22px;
         }
         .cta-branch-name {
           font-family: var(--font-heading);
           font-size: 17px;
           font-weight: 700;
-          color: #FFFFFF;
+          color: var(--color-heading);
           margin: 0 0 12px;
           line-height: 1.2;
           letter-spacing: -0.01em;
@@ -246,63 +247,62 @@ export default function CTABanner() {
           margin-bottom: 7px;
         }
         .cta-branch-icon {
-          color: rgba(255, 255, 255, 0.65);
+          color: var(--color-accent);
           flex-shrink: 0;
           margin-top: 1px;
         }
         .cta-branch-text {
           font-family: var(--font-body);
-          font-size: 12px;
-          color: rgba(255, 255, 255, 0.78);
+          font-size: 13px;
+          color: var(--color-body);
           line-height: 1.5;
         }
         .cta-branch-actions {
           display: flex;
           gap: 7px;
-          margin-top: 14px;
+          margin-top: 16px;
         }
         .cta-branch-btn {
           display: inline-flex;
           align-items: center;
           gap: 5px;
-          padding: 6px 12px;
+          padding: 7px 14px;
           border-radius: 999px;
           font-family: var(--font-body);
-          font-size: 11px;
+          font-size: 12px;
           font-weight: 500;
           text-decoration: none;
-          transition: background 0.2s ease;
+          transition: background 0.2s ease, border-color 0.2s ease;
           cursor: pointer;
           white-space: nowrap;
-          min-height: 30px;
-          color: #FFFFFF;
+          min-height: 32px;
         }
         .cta-branch-btn-wa {
-          background: rgba(37, 211, 102, 0.18);
-          border: 1px solid rgba(37, 211, 102, 0.35);
+          background: rgba(37, 211, 102, 0.1);
+          border: 1px solid rgba(37, 211, 102, 0.4);
+          color: #1a7a3a;
         }
-        .cta-branch-btn-wa:hover { background: rgba(37, 211, 102, 0.28); }
+        .dark .cta-branch-btn-wa { color: #4cde80; }
+        .cta-branch-btn-wa:hover { background: rgba(37, 211, 102, 0.2); }
         .cta-branch-btn-call {
-          background: rgba(255, 255, 255, 0.12);
-          border: 1px solid rgba(255, 255, 255, 0.22);
+          background: var(--color-accent);
+          border: 1px solid var(--color-accent);
+          color: #fff;
         }
-        .cta-branch-btn-call:hover { background: rgba(255, 255, 255, 0.20); }
+        .cta-branch-btn-call:hover {
+          background: var(--color-accent-dark);
+          border-color: var(--color-accent-dark);
+        }
 
-        /* ── Mobile — hide right panel, keep left as-is ── */
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+          .cta-branches-wrap { grid-template-columns: repeat(2, 1fr); }
+        }
         @media (max-width: 767px) {
-          .cta-card {
-            grid-template-columns: 1fr;
-            border-radius: 20px;
-          }
-          .cta-left {
-            padding: 32px;
-          }
-          .cta-heading {
-            font-size: 28px !important;
-          }
-          .cta-right {
-            display: none;
-          }
+          .cta-card { border-radius: 20px; }
+          .cta-left { padding: 32px; }
+          .cta-heading { font-size: 28px !important; }
+          .cta-branches-wrap { grid-template-columns: 1fr; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -311,97 +311,60 @@ export default function CTABanner() {
       `}</style>
 
       <motion.div
-        className="cta-card"
         initial={shouldAnimate ? { opacity: 0, y: 40 } : undefined}
         whileInView={shouldAnimate ? { opacity: 1, y: 0 } : undefined}
         viewport={{ once: true, margin: "-60px" }}
         transition={shouldAnimate ? { duration: 0.7, ease: [0.22, 1, 0.36, 1] } : undefined}
       >
-        {/* Left column — content */}
-        <div className="cta-left">
-          <span className="cta-label">SKIN · HAIR · LASER</span>
+        {/* CTA card */}
+        <div className="cta-card">
+          <div className="cta-left">
+            <DecorativePattern />
+            <span className="cta-label">SKIN · HAIR · LASER</span>
 
-          <h2 className="cta-heading">
-            Transform Your Skin.<br />
-            Book Your Free Consultation.
-          </h2>
+            <h2 className="cta-heading">
+              Transform Your Skin.<br />
+              Book a Consultation.
+            </h2>
 
-          <p className="cta-subline">
-            Medically trained doctors. Korean technology. Real results — in the heart of Pokhara.
-          </p>
+            <p className="cta-subline">
+              Medically trained doctors. Korean technology. Results that last.
+            </p>
 
-          <div className="cta-trust-grid">
-            {TRUST_POINTS.map((point) => (
-              <div key={point} className="cta-trust-item">
-                <CheckIcon />
-                <span className="cta-trust-text">{point}</span>
+            <div className="cta-trust-grid">
+              {TRUST_POINTS.map((point) => (
+                <div key={point} className="cta-trust-item">
+                  <CheckIcon />
+                  <span className="cta-trust-text">{point}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="cta-row">
+              <a
+                href={CONTACT_INFO.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cta-btn"
+                aria-label="Book your appointment via WhatsApp"
+              >
+                Book Your Appointment →
+              </a>
+
+              <div className="cta-rating-pill">
+                <div className="cta-rating-stars" role="img" aria-label="4.8 stars out of 5">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <svg key={i} width="13" height="13" viewBox="0 0 24 24" fill="rgba(255,255,255,0.90)" aria-hidden="true">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                  ))}
+                </div>
+                <span className="cta-rating-text">4.8 · 500+ Patients</span>
               </div>
-            ))}
-          </div>
-
-          <div className="cta-row">
-            <a
-              href={CONTACT_INFO.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cta-btn"
-              aria-label="Book your appointment via WhatsApp"
-            >
-              Book Your Appointment →
-            </a>
-
-            <div className="cta-rating-pill">
-              <div className="cta-rating-stars" role="img" aria-label="4.8 stars out of 5">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <svg key={i} width="13" height="13" viewBox="0 0 24 24" fill="rgba(255,255,255,0.90)" aria-hidden="true">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                ))}
-              </div>
-              <span className="cta-rating-text">4.8 · 500+ Patients</span>
             </div>
           </div>
         </div>
 
-        {/* Right column — glassmorphism branch cards */}
-        <div className="cta-right" aria-label="Our clinic branches">
-          <DecorativePattern />
-          <div className="cta-branches">
-            {BRANCHES.map((branch) => (
-              <div key={branch.city} className="cta-branch-card">
-                <h3 className="cta-branch-name">{branch.name}</h3>
-
-                <div className="cta-branch-row">
-                  <MapPin size={13} className="cta-branch-icon" aria-hidden="true" />
-                  <span className="cta-branch-text">{branch.address}</span>
-                </div>
-                <div className="cta-branch-row">
-                  <Clock size={13} className="cta-branch-icon" aria-hidden="true" />
-                  <span className="cta-branch-text">{branch.hours} · Sat: Closed</span>
-                </div>
-
-                <div className="cta-branch-actions">
-                  <a
-                    href={branch.wa}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="cta-branch-btn cta-branch-btn-wa"
-                    aria-label={`WhatsApp ${branch.city} branch`}
-                  >
-                    <WhatsAppIcon /> WhatsApp
-                  </a>
-                  <a
-                    href={branch.tel}
-                    className="cta-branch-btn cta-branch-btn-call"
-                    aria-label={`Call ${branch.city} branch`}
-                  >
-                    <Phone size={12} aria-hidden="true" /> Call
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
       </motion.div>
     </section>
   );

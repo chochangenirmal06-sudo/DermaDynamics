@@ -11,10 +11,10 @@ const DOCTORS = [
     name: "Dr. Uma Keyal",
     credentials: "MD, PhD",
     role: "Lead Aesthetic Physician",
-    bio: "A distinguished physician who graduated from Tianjin Medical University, China, with her MD degree, followed by a PhD from Tongji University — one of China's most prestigious research institutions. Dr. Uma further advanced her clinical expertise through the highly selective Salzburg Weill Cornell Seminar programme, bringing the latest evidence-based Korean aesthetic protocols to Derma Dynamics Pokhara.",
+    bio: "A distinguished physician who graduated from Tianjin Medical University, China, with her MD degree, followed by a PhD from Tongji University, one of China's most prestigious research institutions. Dr. Uma further advanced her clinical expertise through the highly selective Salzburg Weill Cornell Seminar programme, bringing the latest evidence-based Korean aesthetic protocols to Derma Dynamics Pokhara.",
     highlights: [
-      "MD — Tianjin Medical University, China",
-      "PhD — Tongji University, China",
+      "MD, Tianjin Medical University, China",
+      "PhD, Tongji University, China",
       "Salzburg Weill Cornell Seminar, Austria",
     ],
     photo: "/brand_assets/dr-uma-keyal.png",
@@ -23,7 +23,7 @@ const DOCTORS = [
     name: "Dr. Anil Kumar Bhatta",
     credentials: "MD, PhD",
     role: "Senior Aesthetic Surgeon",
-    bio: "A highly respected aesthetic surgeon celebrated for his exceptional precision and deep attentiveness to each patient's individual concerns. Dr. Anil combines advanced surgical and non-surgical expertise with a warm, patient-first philosophy — consistently delivering visible, lasting results that speak for themselves.",
+    bio: "A highly respected aesthetic surgeon celebrated for his exceptional precision and deep attentiveness to each patient's individual concerns. Dr. Anil combines advanced surgical and non-surgical expertise with a warm, patient-first philosophy, consistently delivering visible, lasting results that speak for themselves.",
     highlights: [
       "Advanced Aesthetic & Surgical Training",
       "Non-Surgical Rejuvenation Specialist",
@@ -49,13 +49,13 @@ const TEAM_MEMBERS = [
   {
     name: "Prashna Biswokarma",
     role: "Receptionist",
-    bio: "Your first point of contact — warmly managing appointments, calls, and every aspect of front desk operations.",
+    bio: "Your first point of contact, warmly managing appointments, calls, and every aspect of front desk operations.",
     photo: "/brand_assets/prashna-biswokarma.jpg",
   },
   {
     name: "Sabhyata Khatri",
     role: "Administrative Manager",
-    bio: "Detail-driven and energetic — overseeing records, coordination, and operational excellence across the clinic.",
+    bio: "Detail-driven and energetic, overseeing records, coordination, and operational excellence across the clinic.",
     photo: "/brand_assets/sabhyata-khatri.jpg",
   },
   {
@@ -371,7 +371,7 @@ export default function AboutPage() {
             </h2>
             <p className="ab-body-center">
               Both physicians hold advanced postgraduate qualifications from internationally
-              recognised medical universities — a standard of expertise rarely found in Nepal.
+              recognised medical universities, a standard of expertise rarely found in Nepal.
             </p>
           </motion.div>
 
@@ -420,7 +420,7 @@ export default function AboutPage() {
             <blockquote className="ab-quote-text">
               Pleasure in the job puts perfection in the work.
             </blockquote>
-            <cite className="ab-quote-author">— Aristotle</cite>
+            <cite className="ab-quote-author">by Aristotle</cite>
             <p className="ab-quote-context">
               At Derma Dynamics, we believe that when passion truly drives our work,
               exceptional outcomes follow naturally. Every procedure we perform reflects

@@ -1,6 +1,34 @@
 import Image from "next/image";
 import Link from "next/link";
-import { NAV_LINKS, SERVICES, CONTACT_INFO, SOCIAL_LINKS, TAGLINE } from "@/lib/constants";
+import { MapPin, Clock, Phone } from "lucide-react";
+import { NAV_LINKS, CONTACT_INFO, SOCIAL_LINKS, TAGLINE } from "@/lib/constants";
+
+const BRANCHES = [
+  {
+    name: "Derma Dynamics Pokhara",
+    address: "New Rd, Pokhara 33700",
+    note: "Bhat-Bhateni Supermarket",
+    hours: "Open daily: 10:00 AM – 5:30 PM",
+    tel: "tel:061591803",
+    display: "061-591803",
+  },
+  {
+    name: "Derma Dynamics Lalitpur",
+    address: "Lagankhel Satdobato Rd",
+    note: "Lalitpur 44600",
+    hours: "Sun–Fri: 10:00 AM – 6:00 PM · Sat: Closed",
+    tel: "tel:015908320",
+    display: "01-5908320",
+  },
+  {
+    name: "Derma Dynamics Dhangadhi",
+    address: "Campus Road Marg",
+    note: "Dhangadhi 10900",
+    hours: "Open daily: 10:00 AM – 6:00 PM",
+    tel: "tel:091590718",
+    display: "091-590718",
+  },
+];
 
 function FacebookIcon() {
   return (
@@ -28,10 +56,28 @@ function TikTokIcon() {
   );
 }
 
+function XIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
+function YouTubeIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+    </svg>
+  );
+}
+
 function SocialIcon({ platform }: { platform: string }) {
-  if (platform === "Facebook") return <FacebookIcon />;
+  if (platform === "Facebook")  return <FacebookIcon />;
   if (platform === "Instagram") return <InstagramIcon />;
-  if (platform === "TikTok") return <TikTokIcon />;
+  if (platform === "TikTok")    return <TikTokIcon />;
+  if (platform === "X")         return <XIcon />;
+  if (platform === "YouTube")   return <YouTubeIcon />;
   return null;
 }
 
@@ -50,7 +96,7 @@ export default function Footer() {
   return (
     <footer style={{ background: 'linear-gradient(135deg, #8B6914 0%, #B8912A 40%, #9A7820 100%)' }} aria-label="Site footer">
       <div className="max-w-[1200px] mx-auto px-6 lg:px-12 pt-16 pb-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 lg:gap-8">
 
           {/* Column 1 — Logo, tagline, social icons */}
           <div className="flex flex-col">
@@ -75,6 +121,8 @@ export default function Footer() {
                 <a
                   key={link.platform}
                   href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={link.platform}
                   className="inline-flex items-center justify-center w-9 h-9 rounded-full [background:rgba(255,255,255,0.15)] [color:rgba(255,255,255,0.80)] hover:[color:#ffffff] hover:[background:rgba(255,255,255,0.28)] [transition:color_0.2s_ease,background_0.2s_ease] cursor-pointer touch-manipulation"
                 >
@@ -100,51 +148,63 @@ export default function Footer() {
             </nav>
           </div>
 
-          {/* Column 3 — Treatments (first 5) */}
-          <div>
-            <h3 className={colHeadingClass}>Our Treatments</h3>
-            <ul className="flex flex-col gap-3">
-              {SERVICES.slice(0, 5).map((service) => (
-                <li
-                  key={service.id}
-                  className="font-body text-[14px] leading-[1.6] [color:rgba(255,255,255,0.78)]"
-                >
-                  {service.name}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 4 — Contact info */}
+          {/* Column 3 — Email only */}
           <div>
             <h3 className={colHeadingClass}>Contact Us</h3>
             <address className="not-italic flex flex-col gap-3">
-              <span className="font-body text-[14px] leading-[1.6] [color:rgba(255,255,255,0.78)]">
-                {CONTACT_INFO.address}
-              </span>
-
-              <a
-                href={`tel:${CONTACT_INFO.phone.replace("-", "")}`}
-                className={linkClass}
-              >
-                {CONTACT_INFO.phone}
-              </a>
-
               <a
                 href={`mailto:${CONTACT_INFO.email}`}
                 className={`${linkClass} break-all`}
               >
                 {CONTACT_INFO.email}
               </a>
-
-              <div className="flex flex-col gap-1 font-body text-[14px] leading-[1.6] [color:rgba(255,255,255,0.78)]">
-                <span>{CONTACT_INFO.hoursWeekday}</span>
-                <span>{CONTACT_INFO.hoursSaturday}</span>
-              </div>
             </address>
           </div>
 
         </div>
+
+        {/* Branch cards row */}
+        <div className="mt-10 pt-10 border-t [border-color:rgba(255,255,255,0.18)]">
+          <h3 className={`${colHeadingClass} mb-6`}>Our Clinics</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {BRANCHES.map((branch) => (
+              <div
+                key={branch.name}
+                style={{
+                  background: "rgba(255,255,255,0.09)",
+                  border: "1px solid rgba(255,255,255,0.18)",
+                  borderRadius: "12px",
+                  padding: "18px 20px",
+                }}
+              >
+                <p className="font-heading font-semibold text-[15px] [color:#ffffff] mb-3 leading-snug">
+                  {branch.name}
+                </p>
+                <div className="flex items-start gap-2 mb-2">
+                  <MapPin size={12} style={{ color: "rgba(255,255,255,0.55)", marginTop: "2px", flexShrink: 0 }} aria-hidden="true" />
+                  <span className="font-body text-[13px] [color:rgba(255,255,255,0.75)] leading-snug">
+                    {branch.address}<br />{branch.note}
+                  </span>
+                </div>
+                <div className="flex items-start gap-2 mb-3">
+                  <Clock size={12} style={{ color: "rgba(255,255,255,0.55)", marginTop: "2px", flexShrink: 0 }} aria-hidden="true" />
+                  <span className="font-body text-[13px] [color:rgba(255,255,255,0.75)] leading-snug">
+                    {branch.hours}
+                  </span>
+                </div>
+                <a
+                  href={branch.tel}
+                  className="inline-flex items-center gap-1.5 font-body text-[12px] font-medium [color:rgba(255,255,255,0.90)] hover:[color:#ffffff] [transition:color_0.15s_ease]"
+                  aria-label={`Call ${branch.name}`}
+                >
+                  <Phone size={11} aria-hidden="true" />
+                  {branch.display}
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
 
       {/* Bottom bar */}
@@ -154,7 +214,7 @@ export default function Footer() {
             © {year} Derma Dynamics Clinic. All rights reserved.
           </p>
           <p className="font-body text-[13px] [color:rgba(255,255,255,0.55)]">
-            {CONTACT_INFO.address}
+            Pokhara · Lalitpur · Dhangadhi
           </p>
         </div>
       </div>

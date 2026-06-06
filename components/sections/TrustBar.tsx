@@ -234,7 +234,7 @@ export default function TrustBar() {
               Pokhara&apos;s Most Trusted<br />Skin Clinic.
             </h2>
             <p className="wcu-body">
-              From advanced Korean technology to medically trained doctors —
+              From advanced Korean technology to medically trained doctors,
               every visit to Derma Dynamics is designed around your results
               and your comfort.
             </p>
