@@ -8,7 +8,7 @@ import { motion, useReducedMotion } from "framer-motion";
 const BULLETS = [
   "Medically trained doctors with internationally recognised qualifications",
   "Advanced Korean skincare technology & evidence-based techniques",
-  "Trusted by 500+ satisfied patients across Pokhara & beyond",
+  "Trusted by 500+ satisfied patients across Nepal",
 ];
 
 const STYLES = `
@@ -244,7 +244,7 @@ export default function HomeAbout() {
           <motion.div {...fadeUp(0.1)}>
             <p className="ha-label">About Us</p>
             <h2 id="ha-heading" className="ha-heading">
-              Pokhara&apos;s Premier<br />
+              Nepal&apos;s Premier<br />
               <em>Aesthetic Clinic</em>
             </h2>
             <p className="ha-body">

@@ -395,7 +395,7 @@ export default function Testimonials() {
           <span className="tm-label">What Our Patients Say</span>
           <span className="tm-divider" aria-hidden="true" />
           <h2 id="tm-heading" className="tm-heading">
-            Trusted by hundreds of patients across Pokhara.
+            Trusted by hundreds of patients across Nepal.
           </h2>
           <div className="tm-google-pill">
             <span className="tm-google-stars" aria-hidden="true">★★★★★</span>

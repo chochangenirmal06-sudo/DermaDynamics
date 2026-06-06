@@ -11,8 +11,8 @@ const FEATURES = [
   },
   {
     num: "02",
-    title: "Korean Technology in Pokhara",
-    body: "The same devices trusted by Seoul's top clinics, without the flight. Seoul-grade science, Pokhara address.",
+    title: "Korean Technology in Nepal",
+    body: "The same devices trusted by Seoul's top clinics, now available across our three clinics in Nepal.",
   },
   {
     num: "03",

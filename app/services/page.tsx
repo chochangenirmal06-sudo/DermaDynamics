@@ -2,15 +2,14 @@ import type { Metadata } from "next";
 import ServicesPage from "@/components/sections/ServicesPage";
 
 export const metadata: Metadata = {
-  title: "Our Services | Derma Dynamics Clinic Pokhara",
+  title: "Our Treatments | Derma Dynamics Clinic",
   description:
-    "Explore all 17 skin, hair and laser treatments at Derma Dynamics Pokhara. Book Botox, HydraFacial, PRP, Thread Lift and more, directly via WhatsApp.",
+    "Explore skin, hair and laser treatments at Derma Dynamics — Botox, HydraFacial, PRP, Thread Lift and more, available across our clinics in Pokhara, Lalitpur, and Dhangadhi.",
   openGraph: {
-    title: "Our Services | Derma Dynamics Clinic Pokhara",
+    title: "Our Treatments | Derma Dynamics Clinic",
     description:
-      "Explore all 17 skin, hair and laser treatments at Derma Dynamics Pokhara. Book Botox, HydraFacial, PRP, Thread Lift and more, directly via WhatsApp.",
-    url: "https://dermadynamicspokhara.com/services",
-    siteName: "Derma Dynamics Clinic Pokhara",
+      "Explore skin, hair and laser treatments at Derma Dynamics — Botox, HydraFacial, PRP, Thread Lift and more, available across our clinics in Pokhara, Lalitpur, and Dhangadhi.",
+    siteName: "Derma Dynamics Clinic",
   },
 };
 

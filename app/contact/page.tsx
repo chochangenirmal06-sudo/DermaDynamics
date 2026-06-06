@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import ContactPage from "@/components/sections/ContactPage";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Derma Dynamics Clinic Pokhara",
+  title: "Contact Us | Derma Dynamics Clinic",
   description:
-    "Book a skin consultation at Derma Dynamics Pokhara. Reach us via WhatsApp, phone, or email. Located on New Road, Pokhara. Sunday to Friday, 10am–6pm.",
+    "Find your nearest Derma Dynamics clinic across Pokhara, Lalitpur, and Dhangadhi. Reach us directly via WhatsApp or phone.",
 };
 
 export default function Contact() {

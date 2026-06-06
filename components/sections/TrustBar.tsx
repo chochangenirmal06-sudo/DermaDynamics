@@ -231,7 +231,7 @@ export default function TrustBar() {
             transition={shouldAnimate ? { duration: 0.6, ease: "easeOut" as const } : undefined}
           >
             <h2 id="wcu-heading" className="wcu-heading">
-              Pokhara&apos;s Most Trusted<br />Skin Clinic.
+              Nepal&apos;s Most Trusted<br />Skin Clinic.
             </h2>
             <p className="wcu-body">
               From advanced Korean technology to medically trained doctors,
