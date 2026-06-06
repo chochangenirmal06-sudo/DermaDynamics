@@ -326,9 +326,7 @@ export default function Hero() {
             {...delay(0.45)}
           >
             <a
-              href={CONTACT_INFO.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/contact"
               className="inline-flex items-center justify-center px-7 min-h-[52px] rounded-sm font-body font-medium text-[15px] bg-accent hover:bg-accent-dark [transition:background-color_0.2s_ease,transform_0.2s_ease,box-shadow_0.2s_ease] hover:-translate-y-px cursor-pointer touch-manipulation"
               style={{ color: "white", boxShadow: "var(--shadow-gold)" }}
             >
