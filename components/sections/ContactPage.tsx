@@ -1,39 +1,11 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import Link from "next/link";
 import { MapPin, Clock, Phone } from "lucide-react";
 import { CONTACT_INFO } from "@/lib/constants";
+import { LOCATIONS } from "@/lib/locations";
 import FAQBranches from "@/components/sections/FAQBranches";
-
-const BRANCHES = [
-  {
-    name: "Derma Dynamics Pokhara",
-    address: "New Rd, Pokhara 33700",
-    note: "Inside Bhat-Bhateni Supermarket",
-    hours: "Open every day: 10:00 AM – 5:30 PM",
-    tel: "tel:061591803",
-    wa: "https://wa.me/977061591803",
-    display: "061-591803",
-  },
-  {
-    name: "Derma Dynamics Lalitpur",
-    address: "Lagankhel Satdobato Rd",
-    note: "Lalitpur 44600",
-    hours: "Sun–Fri: 10:00 AM – 6:00 PM · Sat: Closed",
-    tel: "tel:015908320",
-    wa: "https://wa.me/977015908320",
-    display: "01-5908320",
-  },
-  {
-    name: "Derma Dynamics Dhangadhi",
-    address: "Campus Road Marg",
-    note: "Dhangadhi 10900",
-    hours: "Open every day: 10:00 AM – 6:00 PM",
-    tel: "tel:091590718",
-    wa: "https://wa.me/977091590718",
-    display: "091-590718",
-  },
-];
 
 function WhatsAppIcon() {
   return (
@@ -229,6 +201,18 @@ const STYLES = `
 }
 .cp-card-btn-call:hover { background: var(--color-accent-dark); border-color: var(--color-accent-dark); }
 
+.cp-card-link {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+.cp-card-link:hover { opacity: 0.7; }
+
 /* ── Email strip ── */
 .cp-email-strip {
   margin-top: 48px;
@@ -307,55 +291,59 @@ export default function ContactPage() {
           </motion.div>
 
           <div className="cp-cards">
-            {BRANCHES.map((branch, i) => (
+            {LOCATIONS.map((location, i) => (
               <motion.div
-                key={branch.name}
+                key={location.slug}
                 className="cp-card"
                 initial={sa ? { opacity: 0, y: 28 } : undefined}
                 whileInView={sa ? { opacity: 1, y: 0 } : undefined}
                 viewport={{ once: true, amount: 0.15 }}
                 transition={sa ? { duration: 0.55, ease: EASE, delay: i * 0.1 } : undefined}
               >
-                <h3 className="cp-card-name">{branch.name}</h3>
+                <h3 className="cp-card-name">{location.fullName}</h3>
 
                 <div className="cp-card-row">
                   <MapPin size={14} className="cp-card-icon" aria-hidden="true" />
                   <span className="cp-card-text">
-                    {branch.address}
-                    {branch.note && <><br /><span className="cp-card-note">{branch.note}</span></>}
+                    {location.address}
+                    <br /><span className="cp-card-note">{location.addressNote}</span>
                   </span>
                 </div>
 
                 <div className="cp-card-row">
                   <Clock size={14} className="cp-card-icon" aria-hidden="true" />
-                  <span className="cp-card-text">{branch.hours}</span>
+                  <span className="cp-card-text">{location.hours}</span>
                 </div>
 
                 <div className="cp-card-row">
                   <Phone size={14} className="cp-card-icon" aria-hidden="true" />
-                  <span className="cp-card-text">{branch.display}</span>
+                  <span className="cp-card-text">{location.phone.display}</span>
                 </div>
 
                 <div className="cp-card-divider" aria-hidden="true" />
 
                 <div className="cp-card-actions">
                   <a
-                    href={branch.wa}
+                    href={location.whatsapp}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="cp-card-btn cp-card-btn-wa"
-                    aria-label={`WhatsApp ${branch.name}`}
+                    aria-label={`WhatsApp ${location.fullName}`}
                   >
                     <WhatsAppIcon /> WhatsApp
                   </a>
                   <a
-                    href={branch.tel}
+                    href={location.phone.tel}
                     className="cp-card-btn cp-card-btn-call"
-                    aria-label={`Call ${branch.name}`}
+                    aria-label={`Call ${location.fullName}`}
                   >
                     <Phone size={13} aria-hidden="true" /> Call
                   </a>
                 </div>
+
+                <Link href={`/locations/${location.slug}`} className="cp-card-link">
+                  View {location.city} clinic page →
+                </Link>
               </motion.div>
             ))}
           </div>

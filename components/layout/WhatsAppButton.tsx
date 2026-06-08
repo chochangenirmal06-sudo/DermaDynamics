@@ -3,24 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Phone, X } from "lucide-react";
-
-const BRANCHES = [
-  {
-    city: "Pokhara",
-    tel: "tel:061591803",
-    wa: "https://wa.me/977061591803",
-  },
-  {
-    city: "Lalitpur",
-    tel: "tel:015908320",
-    wa: "https://wa.me/977015908320",
-  },
-  {
-    city: "Dhangadhi",
-    tel: "tel:091590718",
-    wa: "https://wa.me/977091590718",
-  },
-];
+import { LOCATIONS } from "@/lib/locations";
 
 function WhatsAppIcon({ size = 22 }: { size?: number }) {
   return (
@@ -229,24 +212,24 @@ export default function WhatsAppButton() {
               </button>
             </div>
 
-            {BRANCHES.map((branch) => (
-              <div key={branch.city} className="wa-branch">
-                <span className="wa-branch-city">{branch.city}</span>
+            {LOCATIONS.map((location) => (
+              <div key={location.slug} className="wa-branch">
+                <span className="wa-branch-city">{location.city}</span>
                 <div className="wa-branch-btns">
                   <a
-                    href={branch.wa}
+                    href={location.whatsapp}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="wa-branch-btn wa-branch-btn-wa"
-                    aria-label={`WhatsApp ${branch.city}`}
+                    aria-label={`WhatsApp ${location.city}`}
                     onClick={() => setOpen(false)}
                   >
                     <WhatsAppIcon size={11} /> WA
                   </a>
                   <a
-                    href={branch.tel}
+                    href={location.phone.tel}
                     className="wa-branch-btn wa-branch-btn-call"
-                    aria-label={`Call ${branch.city}`}
+                    aria-label={`Call ${location.city}`}
                     onClick={() => setOpen(false)}
                   >
                     <Phone size={11} aria-hidden="true" /> Call

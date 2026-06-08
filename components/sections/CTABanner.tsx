@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { Phone } from "lucide-react";
 import { CONTACT_INFO } from "@/lib/constants";
 
 function CheckIcon() {
@@ -56,30 +55,6 @@ const TRUST_POINTS = [
   "Advanced Korean laser technology",
   "500+ patients treated",
   "Personalised treatment plans",
-];
-
-const BRANCHES = [
-  {
-    name: "Derma Dynamics Pokhara",
-    city: "Pokhara",
-    address: "New Rd, Pokhara 33700 · Bhat-Bhateni Supermarket",
-    hours: "Open daily: 10:00 AM – 5:30 PM",
-    tel: "tel:061591803",
-  },
-  {
-    name: "Derma Dynamics Lalitpur",
-    city: "Lalitpur",
-    address: "Lagankhel Satdobato Rd, Lalitpur 44600",
-    hours: "Sun–Fri: 10:00 AM – 6:00 PM · Sat: Closed",
-    tel: "tel:015908320",
-  },
-  {
-    name: "Derma Dynamics Dhangadhi",
-    city: "Dhangadhi",
-    address: "Campus Road Marg, Dhangadhi 10900",
-    hours: "Open daily: 10:00 AM – 6:00 PM",
-    tel: "tel:091590718",
-  },
 ];
 
 export default function CTABanner() {
@@ -205,108 +180,15 @@ export default function CTABanner() {
           white-space: nowrap;
         }
 
-        /* ── Branches below card ── */
-        .cta-branches-wrap {
-          max-width: 1100px;
-          margin: 24px auto 0;
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 14px;
-        }
-
-        .cta-branch-card {
-          background: var(--color-card);
-          border: 1px solid var(--color-border);
-          border-top: 2px solid rgba(184,145,42,0.55);
-          border-radius: 14px;
-          overflow: hidden;
-          box-shadow: 0 2px 12px rgba(28,24,18,0.07);
-          transition: border-color 0.2s ease, box-shadow 0.2s ease;
-        }
-        .cta-branch-card:hover {
-          border-color: rgba(184,145,42,0.85);
-          border-top-color: var(--color-accent);
-          box-shadow: 0 6px 28px rgba(184,145,42,0.14);
-        }
-        .cta-branch-body {
-          padding: 20px 22px;
-        }
-        .cta-branch-name {
-          font-family: var(--font-heading);
-          font-size: 17px;
-          font-weight: 700;
-          color: var(--color-heading);
-          margin: 0 0 12px;
-          line-height: 1.2;
-          letter-spacing: -0.01em;
-        }
-        .cta-branch-row {
-          display: flex;
-          align-items: flex-start;
-          gap: 7px;
-          margin-bottom: 7px;
-        }
-        .cta-branch-icon {
-          color: var(--color-accent);
-          flex-shrink: 0;
-          margin-top: 1px;
-        }
-        .cta-branch-text {
-          font-family: var(--font-body);
-          font-size: 13px;
-          color: var(--color-body);
-          line-height: 1.5;
-        }
-        .cta-branch-actions {
-          display: flex;
-          gap: 7px;
-          margin-top: 16px;
-        }
-        .cta-branch-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 5px;
-          padding: 7px 14px;
-          border-radius: 999px;
-          font-family: var(--font-body);
-          font-size: 12px;
-          font-weight: 500;
-          text-decoration: none;
-          transition: background 0.2s ease, border-color 0.2s ease;
-          cursor: pointer;
-          white-space: nowrap;
-          min-height: 32px;
-        }
-        .cta-branch-btn-wa {
-          background: rgba(37, 211, 102, 0.1);
-          border: 1px solid rgba(37, 211, 102, 0.4);
-          color: #1a7a3a;
-        }
-        .dark .cta-branch-btn-wa { color: #4cde80; }
-        .cta-branch-btn-wa:hover { background: rgba(37, 211, 102, 0.2); }
-        .cta-branch-btn-call {
-          background: var(--color-accent);
-          border: 1px solid var(--color-accent);
-          color: #fff;
-        }
-        .cta-branch-btn-call:hover {
-          background: var(--color-accent-dark);
-          border-color: var(--color-accent-dark);
-        }
-
         /* ── Responsive ── */
-        @media (max-width: 900px) {
-          .cta-branches-wrap { grid-template-columns: repeat(2, 1fr); }
-        }
         @media (max-width: 767px) {
           .cta-card { border-radius: 20px; }
           .cta-left { padding: 32px; }
           .cta-heading { font-size: 28px !important; }
-          .cta-branches-wrap { grid-template-columns: 1fr; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .cta-btn, .cta-branch-card, .cta-branch-btn { transition: none !important; }
+          .cta-btn { transition: none !important; }
         }
       `}</style>
 

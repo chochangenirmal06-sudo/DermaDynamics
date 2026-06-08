@@ -1,6 +1,7 @@
 export type NavLink = {
   label: string;
   href: string;
+  children?: NavLink[];
 };
 
 export type Service = {
@@ -46,6 +47,15 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Treatments", href: "/services" },
   { label: "About",    href: "/about" },
   { label: "Gallery",  href: "/gallery" },
+  {
+    label: "Locations",
+    href: "/contact",
+    children: [
+      { label: "Pokhara",   href: "/locations/pokhara" },
+      { label: "Lalitpur",  href: "/locations/lalitpur" },
+      { label: "Dhangadhi", href: "/locations/dhangadhi" },
+    ],
+  },
   { label: "Contact",  href: "/contact" },
 ];
 

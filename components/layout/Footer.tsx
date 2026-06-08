@@ -2,33 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Clock, Phone } from "lucide-react";
 import { NAV_LINKS, CONTACT_INFO, SOCIAL_LINKS, TAGLINE } from "@/lib/constants";
-
-const BRANCHES = [
-  {
-    name: "Derma Dynamics Pokhara",
-    address: "New Rd, Pokhara 33700",
-    note: "Bhat-Bhateni Supermarket",
-    hours: "Open daily: 10:00 AM – 5:30 PM",
-    tel: "tel:061591803",
-    display: "061-591803",
-  },
-  {
-    name: "Derma Dynamics Lalitpur",
-    address: "Lagankhel Satdobato Rd",
-    note: "Lalitpur 44600",
-    hours: "Sun–Fri: 10:00 AM – 6:00 PM · Sat: Closed",
-    tel: "tel:015908320",
-    display: "01-5908320",
-  },
-  {
-    name: "Derma Dynamics Dhangadhi",
-    address: "Campus Road Marg",
-    note: "Dhangadhi 10900",
-    hours: "Open daily: 10:00 AM – 6:00 PM",
-    tel: "tel:091590718",
-    display: "091-590718",
-  },
-];
+import { LOCATIONS } from "@/lib/locations";
 
 function FacebookIcon() {
   return (
@@ -167,9 +141,9 @@ export default function Footer() {
         <div className="mt-10 pt-10 border-t [border-color:rgba(255,255,255,0.18)]">
           <h3 className={`${colHeadingClass} mb-6`}>Our Clinics</h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {BRANCHES.map((branch) => (
+            {LOCATIONS.map((location) => (
               <div
-                key={branch.name}
+                key={location.slug}
                 style={{
                   background: "rgba(255,255,255,0.09)",
                   border: "1px solid rgba(255,255,255,0.18)",
@@ -178,28 +152,36 @@ export default function Footer() {
                 }}
               >
                 <p className="font-heading font-semibold text-[15px] [color:#ffffff] mb-3 leading-snug">
-                  {branch.name}
+                  {location.fullName}
                 </p>
                 <div className="flex items-start gap-2 mb-2">
                   <MapPin size={12} style={{ color: "rgba(255,255,255,0.55)", marginTop: "2px", flexShrink: 0 }} aria-hidden="true" />
                   <span className="font-body text-[13px] [color:rgba(255,255,255,0.75)] leading-snug">
-                    {branch.address}<br />{branch.note}
+                    {location.address}<br />{location.addressNote}
                   </span>
                 </div>
                 <div className="flex items-start gap-2 mb-3">
                   <Clock size={12} style={{ color: "rgba(255,255,255,0.55)", marginTop: "2px", flexShrink: 0 }} aria-hidden="true" />
                   <span className="font-body text-[13px] [color:rgba(255,255,255,0.75)] leading-snug">
-                    {branch.hours}
+                    {location.hours}
                   </span>
                 </div>
-                <a
-                  href={branch.tel}
-                  className="inline-flex items-center gap-1.5 font-body text-[12px] font-medium [color:rgba(255,255,255,0.90)] hover:[color:#ffffff] [transition:color_0.15s_ease]"
-                  aria-label={`Call ${branch.name}`}
-                >
-                  <Phone size={11} aria-hidden="true" />
-                  {branch.display}
-                </a>
+                <div className="flex items-center justify-between gap-2">
+                  <a
+                    href={location.phone.tel}
+                    className="inline-flex items-center gap-1.5 font-body text-[12px] font-medium [color:rgba(255,255,255,0.90)] hover:[color:#ffffff] [transition:color_0.15s_ease]"
+                    aria-label={`Call ${location.fullName}`}
+                  >
+                    <Phone size={11} aria-hidden="true" />
+                    {location.phone.display}
+                  </a>
+                  <Link
+                    href={`/locations/${location.slug}`}
+                    className="font-body text-[12px] font-medium [color:rgba(255,255,255,0.90)] hover:[color:#ffffff] [transition:color_0.15s_ease]"
+                  >
+                    View clinic →
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
